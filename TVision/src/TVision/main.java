@@ -1,25 +1,19 @@
 package TVision;
 
-import java.awt.ComponentOrientation;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
+import java.awt.GraphicsEnvironment;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author ZxoR (Yonatan)
@@ -31,11 +25,20 @@ public class main extends javax.swing.JFrame {
      */
     public main() {
         initComponents();
-        showsTable.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-        JTableHeader jtableHeader = showsTable.getTableHeader();
-DefaultTableCellRenderer rend = (DefaultTableCellRenderer) showsTable.getTableHeader().getDefaultRenderer();
-rend.setHorizontalAlignment(JLabel.CENTER);
-jtableHeader.setDefaultRenderer(rend);
+        DefaultTableCellRenderer rightRenderer_c = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer rightRenderer_h = new DefaultTableCellRenderer();
+        rightRenderer_c.setHorizontalAlignment(javax.swing.JLabel.RIGHT);
+        ArrayList<JTable> Tables = new ArrayList();
+        Tables.add(channelsTable);
+        Tables.add(showsTable);
+        for (JTable t : Tables) {
+            rightRenderer_h = (DefaultTableCellRenderer) t.getTableHeader().getDefaultRenderer();
+            rightRenderer_h.setHorizontalAlignment(javax.swing.JLabel.RIGHT);
+            for (int i = 0; i < t.getColumnCount(); i++) {
+                t.getColumnModel().getColumn(i).setCellRenderer(rightRenderer_c);
+            }
+        }
+        isramedia.loadChannelsListToTable((DefaultTableModel) channelsTable.getModel());
     }
 
     /**
@@ -47,60 +50,90 @@ jtableHeader.setDefaultRenderer(rend);
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        refreshButton = new javax.swing.JButton();
-        jSplitPane1 = new javax.swing.JSplitPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        channelsTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         showsTable = new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        headText = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("TVision version 0.5");
 
-        refreshButton.setText("Refresh");
-        refreshButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshButtonActionPerformed(evt);
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(20, 404));
+
+        channelsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "שם הערוץ", "מזהה הערוץ"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-
-        jSplitPane1.setDividerSize(5);
+        channelsTable.getTableHeader().setReorderingAllowed(false);
+        channelsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                channelsTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(channelsTable);
+        channelsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (channelsTable.getColumnModel().getColumnCount() > 0) {
+            channelsTable.getColumnModel().getColumn(1).setMinWidth(35);
+            channelsTable.getColumnModel().getColumn(1).setPreferredWidth(55);
+            channelsTable.getColumnModel().getColumn(1).setMaxWidth(80);
+        }
 
         showsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "שעה", "תוכנית", "אורך", "ז'אנר"
-            }
-        ));
-        showsTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(showsTable);
-
-        jSplitPane1.setLeftComponent(jScrollPane2);
-
-        jScrollPane3.setPreferredSize(new java.awt.Dimension(300, 300));
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "מזהה", "ערוץ"
+                "ז'אנר", "אורך", "תוכנית", "שעה"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-        });
-        jTable2.setPreferredSize(new java.awt.Dimension(80, 0));
-        jTable2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(jTable2);
 
-        jSplitPane1.setRightComponent(jScrollPane3);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        showsTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(showsTable);
+        if (showsTable.getColumnModel().getColumnCount() > 0) {
+            showsTable.getColumnModel().getColumn(2).setMinWidth(200);
+            showsTable.getColumnModel().getColumn(2).setPreferredWidth(400);
+            showsTable.getColumnModel().getColumn(2).setMaxWidth(500);
+            showsTable.getColumnModel().getColumn(3).setMinWidth(60);
+            showsTable.getColumnModel().getColumn(3).setPreferredWidth(60);
+            showsTable.getColumnModel().getColumn(3).setMaxWidth(85);
+        }
+
+        headText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        headText.setText("לוח שידורים");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,35 +142,49 @@ jtableHeader.setDefaultRenderer(rend);
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(refreshButton))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jSplitPane1)
-                        .addContainerGap())))
+                        .addGap(0, 589, Short.MAX_VALUE)
+                        .addComponent(headText)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(refreshButton)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(headText)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-DefaultTableModel model = (DefaultTableModel) showsTable.getModel();
-model.setRowCount(0);
-try {
-            isramedia.getListToTableModel("1/%D7%A2%D7%A8%D7%95%D7%A5-1-%D7%A9%D7%99%D7%93%D7%95%D7%A8-%D7%97%D7%99", model);
-        } catch (IOException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+    private void channelsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_channelsTableMouseClicked
+        if (evt.getClickCount() == 2) {
+            GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(headText.getFont());
+            DefaultTableModel model = (DefaultTableModel) channelsTable.getModel();
+            String channel = (String) channelsTable.getValueAt(channelsTable.getSelectedRow(), 1);
+            String head = (String) channelsTable.getValueAt(channelsTable.getSelectedRow(), 0);
+            DefaultTableModel modelshow = (DefaultTableModel) showsTable.getModel();
+            modelshow.setRowCount(0);
+            try {
+                isramedia.getListToTableModel(channel + "/%D7%A2%D7%A8%D7%95%D7%A5-1-%D7%A9%D7%99%D7%93%D7%95%D7%A8-%D7%97%D7%99", modelshow);
+            } catch (IOException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            finally {
+                headText.setText(head);
+            }
         }
-
-    }//GEN-LAST:event_refreshButtonActionPerformed
+    }//GEN-LAST:event_channelsTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -175,11 +222,10 @@ try {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable channelsTable;
+    private javax.swing.JLabel headText;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JButton refreshButton;
     private javax.swing.JTable showsTable;
     // End of variables declaration//GEN-END:variables
 }
