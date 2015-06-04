@@ -31,9 +31,9 @@ public class main extends javax.swing.JFrame {
      */
     public main() {
         initComponents();
-        jTable1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-        JTableHeader jtableHeader = jTable1.getTableHeader();
-DefaultTableCellRenderer rend = (DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer();
+        showsTable.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        JTableHeader jtableHeader = showsTable.getTableHeader();
+DefaultTableCellRenderer rend = (DefaultTableCellRenderer) showsTable.getTableHeader().getDefaultRenderer();
 rend.setHorizontalAlignment(JLabel.CENTER);
 jtableHeader.setDefaultRenderer(rend);
     }
@@ -47,20 +47,25 @@ jtableHeader.setDefaultRenderer(rend);
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        refreshButton = new javax.swing.JButton();
+        jSplitPane1 = new javax.swing.JSplitPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        showsTable = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Refresh");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        refreshButton.setText("Refresh");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                refreshButtonActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jSplitPane1.setDividerSize(5);
+
+        showsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -68,31 +73,63 @@ jtableHeader.setDefaultRenderer(rend);
                 "שעה", "תוכנית", "אורך", "ז'אנר"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        showsTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(showsTable);
+
+        jSplitPane1.setLeftComponent(jScrollPane2);
+
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(300, 300));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "מזהה", "ערוץ"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jTable2.setPreferredSize(new java.awt.Dimension(80, 0));
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(jTable2);
+
+        jSplitPane1.setRightComponent(jScrollPane3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(713, Short.MAX_VALUE)
-                .addComponent(jButton1))
-            .addComponent(jScrollPane2)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(refreshButton))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jSplitPane1)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addComponent(refreshButton)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+DefaultTableModel model = (DefaultTableModel) showsTable.getModel();
 model.setRowCount(0);
 try {
             isramedia.getListToTableModel("1/%D7%A2%D7%A8%D7%95%D7%A5-1-%D7%A9%D7%99%D7%93%D7%95%D7%A8-%D7%97%D7%99", model);
@@ -100,7 +137,7 @@ try {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_refreshButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,8 +175,11 @@ try {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JButton refreshButton;
+    private javax.swing.JTable showsTable;
     // End of variables declaration//GEN-END:variables
 }

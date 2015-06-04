@@ -22,7 +22,6 @@ public class isramedia {
 
     public static void getListToTableModel(String channelNameURL, DefaultTableModel model) throws IOException {
         String sURL = "http://www.isramedia.net/%D7%9C%D7%95%D7%97-%D7%A9%D7%99%D7%93%D7%95%D7%A8%D7%99%D7%9D/" + channelNameURL;
-        System.out.println(sURL);
         URL url = new URL(sURL);
         HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
         //set http request headers
@@ -50,9 +49,7 @@ public class isramedia {
         Pattern p = Pattern.compile(expression);
         Matcher m = p.matcher(sourceall);
         while (m.find()) {
-            System.out.println(m.group(1) + " " + m.group(2));
             model.addRow(new Object[]{m.group(1), m.group(2), m.group(3), m.group(4)});
-
         }
     }
 }
