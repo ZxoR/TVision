@@ -66,7 +66,7 @@ public class main extends javax.swing.JFrame {
 
             },
             new String [] {
-                "שם הערוץ", "מזהה הערוץ"
+                "שם הערוץ", "#"
             }
         ) {
             Class[] types = new Class [] {
@@ -84,6 +84,7 @@ public class main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        channelsTable.setColumnSelectionAllowed(true);
         channelsTable.getTableHeader().setReorderingAllowed(false);
         channelsTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
