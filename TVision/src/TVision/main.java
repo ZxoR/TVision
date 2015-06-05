@@ -140,7 +140,7 @@ public class main extends javax.swing.JFrame {
         }
 
         headText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        headText.setText("לוח שידורים");
+        headText.setText("TVision - תוכנת לוח השידורים הישראלית");
 
         pBar.setMaximum(6);
         pBar.setToolTipText("");
@@ -151,15 +151,18 @@ public class main extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 589, Short.MAX_VALUE)
-                        .addComponent(headText))
-                    .addComponent(pBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(headText)
+                        .addGap(18, 18, 18)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -183,7 +186,8 @@ public class main extends javax.swing.JFrame {
 
     private void channelsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_channelsTableMouseClicked
         if (evt.getClickCount() == 2) {
-                        pBar.enable(true);
+            pBar.enable(true);
+            headText.setText("המתן...");
             pBar.setValue(1);
             GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(headText.getFont());
             DefaultTableModel model = (DefaultTableModel) channelsTable.getModel();
@@ -199,11 +203,10 @@ public class main extends javax.swing.JFrame {
                         isramedia.getListToTableModel(channel + "/%D7%A2%D7%A8%D7%95%D7%A5-1-%D7%A9%D7%99%D7%93%D7%95%D7%A8-%D7%97%D7%99", modelshow, pBar);
                     } catch (IOException ex) {
                         Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    finally {
-                                    headText.setText(head);
-            pBar.setValue(0);
-            pBar.enable(false);   
+                    } finally {
+                        headText.setText(head);
+                        pBar.setValue(0);
+                        pBar.enable(false);                        
                     }
                 }
             });

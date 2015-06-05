@@ -25,17 +25,22 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="589" max="32767" attributes="0"/>
-                      <Component id="headText" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="pBar" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" pref="657" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="7" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="pBar" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="headText" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="158" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="256" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -155,7 +160,7 @@
     <Component class="javax.swing.JLabel" name="headText">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="&#x5dc;&#x5d5;&#x5d7; &#x5e9;&#x5d9;&#x5d3;&#x5d5;&#x5e8;&#x5d9;&#x5dd;"/>
+        <Property name="text" type="java.lang.String" value="TVision - &#x5ea;&#x5d5;&#x5db;&#x5e0;&#x5ea; &#x5dc;&#x5d5;&#x5d7; &#x5d4;&#x5e9;&#x5d9;&#x5d3;&#x5d5;&#x5e8;&#x5d9;&#x5dd; &#x5d4;&#x5d9;&#x5e9;&#x5e8;&#x5d0;&#x5dc;&#x5d9;&#x5ea;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="pBar">
