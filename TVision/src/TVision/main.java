@@ -1,13 +1,19 @@
 package TVision;
 
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.awt.GraphicsEnvironment;
+import java.awt.List;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,7 +29,7 @@ public class main extends javax.swing.JFrame {
     /**
      * Creates new form main
      */
-    public main() {
+    public main() throws IOException {
         initComponents();
         DefaultTableCellRenderer rightRenderer_c = new DefaultTableCellRenderer();
         DefaultTableCellRenderer rightRenderer_h = new DefaultTableCellRenderer();
@@ -159,7 +165,7 @@ public class main extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(headText)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -172,18 +178,22 @@ public class main extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {
             GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(headText.getFont());
             DefaultTableModel model = (DefaultTableModel) channelsTable.getModel();
-            String channel = (String) channelsTable.getValueAt(channelsTable.getSelectedRow(), 1);
-            String head = (String) channelsTable.getValueAt(channelsTable.getSelectedRow(), 0);
-            DefaultTableModel modelshow = (DefaultTableModel) showsTable.getModel();
+            final String channel = (String) channelsTable.getValueAt(channelsTable.getSelectedRow(), 1);
+            final String head = (String) channelsTable.getValueAt(channelsTable.getSelectedRow(), 0);
+            final DefaultTableModel modelshow = (DefaultTableModel) showsTable.getModel();
             modelshow.setRowCount(0);
-            try {
-                isramedia.getListToTableModel(channel + "/%D7%A2%D7%A8%D7%95%D7%A5-1-%D7%A9%D7%99%D7%93%D7%95%D7%A8-%D7%97%D7%99", modelshow);
-            } catch (IOException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            finally {
-                headText.setText(head);
-            }
+            Thread t = new Thread() {
+                public void run() {
+                    try {
+                        isramedia.getListToTableModel(channel + "/%D7%A2%D7%A8%D7%95%D7%A5-1-%D7%A9%D7%99%D7%93%D7%95%D7%A8-%D7%97%D7%99", modelshow);
+                    } catch (IOException ex) {
+                        Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                    } finally {
+                        headText.setText(head);
+                    }
+                }
+            };
+            t.run();
         }
     }//GEN-LAST:event_channelsTableMouseClicked
 
@@ -217,7 +227,11 @@ public class main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new main().setVisible(true);
+                try {
+                    new main().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -229,4 +243,5 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable showsTable;
     // End of variables declaration//GEN-END:variables
+
 }
