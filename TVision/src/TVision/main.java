@@ -61,6 +61,7 @@ public class main extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         showsTable = new javax.swing.JTable();
         headText = new javax.swing.JLabel();
+        pBar = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TVision version 0.5");
@@ -90,7 +91,6 @@ public class main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        channelsTable.setColumnSelectionAllowed(true);
         channelsTable.getTableHeader().setReorderingAllowed(false);
         channelsTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -142,6 +142,10 @@ public class main extends javax.swing.JFrame {
         headText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         headText.setText("לוח שידורים");
 
+        pBar.setMaximum(6);
+        pBar.setToolTipText("");
+        pBar.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,7 +156,8 @@ public class main extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 589, Short.MAX_VALUE)
-                        .addComponent(headText)))
+                        .addComponent(headText))
+                    .addComponent(pBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addContainerGap())
@@ -161,11 +166,13 @@ public class main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(headText)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -176,24 +183,31 @@ public class main extends javax.swing.JFrame {
 
     private void channelsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_channelsTableMouseClicked
         if (evt.getClickCount() == 2) {
+                        pBar.enable(true);
+            pBar.setValue(1);
             GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(headText.getFont());
             DefaultTableModel model = (DefaultTableModel) channelsTable.getModel();
             final String channel = (String) channelsTable.getValueAt(channelsTable.getSelectedRow(), 1);
             final String head = (String) channelsTable.getValueAt(channelsTable.getSelectedRow(), 0);
             final DefaultTableModel modelshow = (DefaultTableModel) showsTable.getModel();
             modelshow.setRowCount(0);
-            Thread t = new Thread() {
+            pBar.setValue(2);
+            Thread t = new Thread(new Runnable() {
                 public void run() {
                     try {
-                        isramedia.getListToTableModel(channel + "/%D7%A2%D7%A8%D7%95%D7%A5-1-%D7%A9%D7%99%D7%93%D7%95%D7%A8-%D7%97%D7%99", modelshow);
+                        pBar.setValue(3);
+                        isramedia.getListToTableModel(channel + "/%D7%A2%D7%A8%D7%95%D7%A5-1-%D7%A9%D7%99%D7%93%D7%95%D7%A8-%D7%97%D7%99", modelshow, pBar);
                     } catch (IOException ex) {
                         Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-                    } finally {
-                        headText.setText(head);
+                    }
+                    finally {
+                                    headText.setText(head);
+            pBar.setValue(0);
+            pBar.enable(false);   
                     }
                 }
-            };
-            t.run();
+            });
+            t.start();
         }
     }//GEN-LAST:event_channelsTableMouseClicked
 
@@ -241,6 +255,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel headText;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JProgressBar pBar;
     private javax.swing.JTable showsTable;
     // End of variables declaration//GEN-END:variables
 

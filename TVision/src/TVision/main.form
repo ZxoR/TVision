@@ -32,6 +32,7 @@
                       <EmptySpace min="0" pref="589" max="32767" attributes="0"/>
                       <Component id="headText" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="pBar" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="158" max="32767" attributes="0"/>
@@ -43,11 +44,13 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Component id="headText" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="460" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="428" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="pBar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" max="32767" attributes="0"/>
               </Group>
@@ -91,7 +94,6 @@
                 </Column>
               </TableColumnModel>
             </Property>
-            <Property name="columnSelectionAllowed" type="boolean" value="true"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
@@ -154,6 +156,13 @@
       <Properties>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="&#x5dc;&#x5d5;&#x5d7; &#x5e9;&#x5d9;&#x5d3;&#x5d5;&#x5e8;&#x5d9;&#x5dd;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JProgressBar" name="pBar">
+      <Properties>
+        <Property name="maximum" type="int" value="6"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
   </SubComponents>

@@ -79,7 +79,8 @@ public class isramedia {
         }
     }
 
-    public static void getListToTableModel(String channelNameURL, DefaultTableModel model) throws IOException {
+    public static void getListToTableModel(String channelNameURL, DefaultTableModel model, javax.swing.JProgressBar pBar) throws IOException {
+        pBar.setValue(pBar.getValue() +1);
         model.setRowCount(0);
         String sURL = "http://www.isramedia.net/%D7%9C%D7%95%D7%97-%D7%A9%D7%99%D7%93%D7%95%D7%A8%D7%99%D7%9D/" + channelNameURL;
         URL url = new URL(sURL);
@@ -112,6 +113,7 @@ public class isramedia {
         while ((inputLine = in.readLine()) != null) {
             a.append(inputLine);
         }
+        pBar.setValue(pBar.getValue() +1);
 
         in.close();
 
@@ -125,5 +127,7 @@ public class isramedia {
             String showTime = m.group(1).equals("current") ? "* " + m.group(2) : m.group(2);
             model.addRow(new Object[]{m.group(5), m.group(4), m.group(3), showTime});
         }
+                pBar.setValue(pBar.getValue() +1);
+
     }
 }
